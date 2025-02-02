@@ -3,6 +3,7 @@ import torch.nn as nn
 
 from transformer_block import TransformerBlock
 from layer_norm import LayerNorm
+from helpers import generate_text_simple
 
 class GPTModule(nn.Module):
     def __init__(self, cfg):
@@ -39,23 +40,7 @@ class GPTModule(nn.Module):
 
         return logits
 
-
-### a quick helper function
-def generate_text_simple(model, idx, max_new_tokens, context_size):
-    for _ in range(max_new_tokens):
-        trimmed_idx = idx[:, -context_size:] #use only the last context_size as context if len(idx) > context_size
-
-        with torch.no_grad():
-            logits = model(trimmed_idx)
-
-        logits = logits[:, -1, :] #we want only the last token
-        probas = torch.softmax(logits, dim=-1)
-        idx_next = torch.argmax(probas, dim=-1, keepdim=True)
-        
-        idx = torch.cat((idx, idx_next), dim=1)
-
-    return idx
-
+"""
 ### Let's try this out
 
 GPT_CONFIG_124M = {
@@ -112,3 +97,5 @@ print(decoded_text)
 
 #'Hello, I am Featureiman Byeswickattribute argue'
 # classic
+
+"""
