@@ -1,5 +1,5 @@
 # LLM
-An implementation of GPT-2 model from scratch.
+An implementation of OpenAI's GPT-2 model from scratch.
 
 The jupyter notebooks have implementations of the different building blocks to experiment.
 
